@@ -1,0 +1,15 @@
+[package]
+name = "nsm-cli"
+version = "0.1.0"
+authors = ["Mike Lodder <mike.lodder@coinbase.com>"]
+edition = "2018"
+
+[dependencies]
+base64-url = "1.4"
+nsm-driver = { version = "0.1", path = "aws-nitro-enclaves-nsm-api/nsm-driver" }
+nsm-io = { version = "0.1", path = "aws-nitro-enclaves-nsm-api/nsm-io" }
+serde = { version = "1.0", features = ["derive"] }
+serde-big-array = "0.3"
+serde_bytes = "0.11"
+serde_json = "1.0"
+structopt = "0.3"
