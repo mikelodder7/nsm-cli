@@ -157,20 +157,35 @@ Fail Example
 }
 ```
 
+# Adding to docker image 
+Build a docker image that adds nsm-cli to the docker container before converting to an
+enclave image file
+
+```dockerfile
+FROM alpine:latest
+
+COPY nsm-cli /bin/nsm-cli
+
+CMD nsm-cli describe-nsm
+```
+
 # Building from source
 
 ## Clone the project
 1. git clone https://github.com/mikelodder7/nsm-cli
 1. cd nsm-cli
+1. git submodule init   
 1. git submodule update --init
    
 ## Install Rust
 
 1. curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
+1. rustup target add x86_64-unknown-linux-musl
 
 ## Compiling the code
 
-1. cargo build --release
+1. cargo build --target=x86_64-unknown-linux-musl --release
+1. The binary is located in the target/x86_64-unknown-linux-musl/release folder
 
 # Status
 

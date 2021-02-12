@@ -24,13 +24,13 @@ pub enum Args {
     /// Run this process as long running process
     /// instead of run a single command and exit
     Server {
-        #[structopt(long, name = "unix-socket-path")]
+        #[structopt(name = "unix-socket-path")]
         /// The unix socket to listen on
         socket: String,
     },
     /// Read data from PlatformConfigurationRegister at index
     DescribePCR {
-        #[structopt(long, name = "pcr-index")]
+        #[structopt(name = "pcr-index")]
         /// index of the PCR to describe
         index: u16,
     },
@@ -45,13 +45,13 @@ pub enum Args {
     },
     /// Lock PlatformConfigurationRegister at index from further modifications
     LockPCR {
-        #[structopt(long, name = "pcr-index")]
+        #[structopt(name = "pcr-index")]
         /// Index to lock
         index: u16,
     },
     /// Lock PlatformConfigurationRegisters at indexes [0, range) from further modifications
     LockPCRS {
-        #[structopt(long, name = "pcr-range")]
+        #[structopt(name = "pcr-range")]
         /// Number of PCRs to lock, starting from index 0
         range: u16,
     },
