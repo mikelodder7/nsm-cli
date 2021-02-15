@@ -169,6 +169,14 @@ COPY nsm-cli /bin/nsm-cli
 CMD nsm-cli describe-nsm
 ```
 
+# Installation
+Download the binary and copy into your Docker image
+
+```bash
+curl -sSLO https://github.com/mikelodder7/nsm-cli/releases/download/v0.1.0/nsm-cli_x86_64-unknown-linux-musl
+mv nsm-cli_x86_64-unknown-linux-musl nsm-cli
+```
+
 # Building from source
 
 ## Clone the project
