@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 use serde_bytes::ByteBuf;
 use structopt::StructOpt;
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 pub struct Error {
     msg: String,
     #[serde(serialize_with = "write_error_code")]
@@ -39,7 +39,7 @@ where
     })
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 pub struct NsmResponse {
     pub(crate) ok: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -114,13 +114,13 @@ fn main() {
                     public_key,
                     user_data,
                 } => nsm_get_attestation_doc(fd, nonce, public_key, user_data),
-                Args::ExtendPCR { index, data } => nsm_extend_pcr(fd, index, data),
-                Args::LockPCR { index } => nsm_lock_pcr(fd, index),
-                Args::LockPCRS { range } => nsm_lock_pcrs(fd, range),
-                Args::DescribePCR { index } => nsm_describe_pcr(fd, index),
-                Args::DescribeNSM => nsm_describe(fd),
+                Args::ExtendPcr { index, data } => nsm_extend_pcr(fd, index, data),
+                Args::LockPcr { index } => nsm_lock_pcr(fd, index),
+                Args::LockPcrs { range } => nsm_lock_pcrs(fd, range),
+                Args::DescribePcr { index } => nsm_describe_pcr(fd, index),
+                Args::DescribeNsm => nsm_describe(fd),
                 Args::Rand { number } => nsm_get_random(fd, number),
-                Args::Server { socket } => match server::run(fd, socket) {
+                Args::Server { socket } => match server::run(fd, &socket) {
                     Ok(()) => Ok(ok("Server closed".to_string())),
                     Err(e) => Err(Error {
                         msg: e,
@@ -150,7 +150,7 @@ fn check_b64_arg(v: &mut Option<ByteBuf>, a: Option<String>, name: &str) -> NsmR
                 msg: format!("Invalid {} string: {:?}", name, e),
                 code: ErrorCode::InvalidArgument,
             }),
-        }
+        },
     }
 }
 

@@ -3,6 +3,7 @@ use structopt::StructOpt;
 
 /// The command line arguments
 #[derive(Debug, Deserialize, Serialize, StructOpt)]
+#[serde(rename_all = "snake_case")]
 pub enum Args {
     /// Generate random bytes from /dev/nsm
     Rand {
@@ -29,13 +30,13 @@ pub enum Args {
         socket: String,
     },
     /// Read data from PlatformConfigurationRegister at index
-    DescribePCR {
+    DescribePcr {
         #[structopt(name = "pcr-index")]
         /// index of the PCR to describe
         index: u16,
     },
     /// Extend PlatformConfigurationRegister at index with data
-    ExtendPCR {
+    ExtendPcr {
         #[structopt(short, long, name = "pcr-index")]
         /// Index the PCR to extend
         index: u16,
@@ -44,13 +45,13 @@ pub enum Args {
         data: String,
     },
     /// Lock PlatformConfigurationRegister at index from further modifications
-    LockPCR {
+    LockPcr {
         #[structopt(name = "pcr-index")]
         /// Index to lock
         index: u16,
     },
     /// Lock PlatformConfigurationRegisters at indexes [0, range) from further modifications
-    LockPCRS {
+    LockPcrs {
         #[structopt(name = "pcr-range")]
         /// Number of PCRs to lock, starting from index 0
         range: u16,
@@ -59,5 +60,5 @@ pub enum Args {
     /// Clients are recommended to decode major_version and minor_version first,
     /// and use an appropriate structure to hold this data,
     /// or fail if the version is not supported.
-    DescribeNSM,
+    DescribeNsm,
 }
